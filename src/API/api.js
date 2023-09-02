@@ -46,7 +46,10 @@ export const createUser = async (data) => {
 //create new task
 export const createTask = async (task) => {
   try {
-    const newTaks = await db.collection("tasks").add(task);
+    const newTaks = await db.collection("tasks").add({
+      ...task,
+      id: uuid()(),
+    });
     return newTaks;
   } catch (error) {
     console.log("error: ", error);

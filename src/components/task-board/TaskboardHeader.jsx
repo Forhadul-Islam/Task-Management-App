@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import HorizontalLine from "../ui/HorizontalLine";
 import { changeTab } from "../../features/settings/settingsSlice";
-import Modal from "../modal/Modal";
+import CreateTaskModal from "./all-tasks/CreateTaskModal";
+import HorizontalLine from "../ui/HorizontalLine";
+import { useState } from "react";
 
 const TaskboardHeader = () => {
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
   const {
     tabs: { allTabs, currentTab },
   } = useSelector((state) => state.settings);
@@ -12,7 +14,6 @@ const TaskboardHeader = () => {
   console.log({ allTabs, currentTab });
   return (
     <>
-      <Modal />
       <div className="flex justify-between mt-10">
         <ul className="flex gap-2">
           {allTabs.map((tab) => (
@@ -31,9 +32,16 @@ const TaskboardHeader = () => {
         </ul>
         <div className="flex gap-2">
           <div>filters and search</div>
-          {/* <button className="text-white font-semibold flex items-center ring-2 ring-indigo-600 bg-indigo-700 px-3  rounded-full text-center">
+          <button
+            onClick={() => setShowModal(true)}
+            className="text-white font-semibold flex items-center ring-2 ring-indigo-600 bg-indigo-700 px-3  rounded-full text-center"
+          >
             <span className="text-2xl pr-2 mb-1">+</span> Create Task
-          </button> */}
+          </button>
+          {/* show modal to create new task */}
+          {showModal && (
+            <CreateTaskModal handleClose={() => setShowModal(false)} />
+          )}
         </div>
       </div>
       <HorizontalLine />
