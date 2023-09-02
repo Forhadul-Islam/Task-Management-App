@@ -1,4 +1,5 @@
 import db from "../db/db";
+import { uuid } from "../lib/uuidGenerator";
 
 // user
 export async function getUsers() {
@@ -19,11 +20,23 @@ export const getUserById = async (id) => {
     console.log("error: ", error);
   }
 };
-
-//add new user
-export const addUser = async (data) => {
+//get single user by emailId
+export const getUserByEmailId = async (email) => {
   try {
-    const user = db.collection("users").add(data);
+    const user = db.collection("users").doc({ email }).get();
+    return user;
+  } catch (error) {
+    console.log("error: ", error);
+  }
+};
+
+//create new user
+export const createUser = async (data) => {
+  try {
+    const user = db.collection("users").add({
+      ...data,
+      id: uuid()(),
+    });
     return user;
   } catch (error) {
     console.log("error: ", error);
@@ -31,7 +44,7 @@ export const addUser = async (data) => {
 };
 
 //create new task
-export const addTask = async (task) => {
+export const createTask = async (task) => {
   try {
     const newTaks = await db.collection("tasks").add(task);
     return newTaks;
@@ -71,7 +84,7 @@ export const editTask = async ({ id, task }) => {
 };
 
 //create new team
-export const addTeam = async (team) => {
+export const createTeam = async (team) => {
   try {
     const newTeam = await db.collection("teams").add(team);
     return newTeam;
