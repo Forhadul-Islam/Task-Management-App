@@ -8,7 +8,7 @@ import HorizontalLine from "../../ui/HorizontalLine";
 import { createTask } from "../../../API/api";
 import { addTask } from "../../../features/tasks/tasksSlice";
 
-const CreateTaskModal = ({ handleClose }) => {
+const CreateTeamTaskModal = ({ handleClose, teamId, teamMembers }) => {
   const dispatch = useDispatch();
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
@@ -19,7 +19,7 @@ const CreateTaskModal = ({ handleClose }) => {
   const { allUsers } = useSelector((state) => state.users);
   const { user } = useSelector((state) => state.auth);
 
-  const allUsersSelectOptions = allUsers
+  const allUsersSelectOptions = teamMembers
     .filter((u) => u?.id !== user?.id)
     .map((u) => {
       return {
@@ -30,7 +30,7 @@ const CreateTaskModal = ({ handleClose }) => {
 
   //get assigned profiles
   const getAssignedProfiles = () => {
-    return allUsers.filter((u) => {
+    return teamMembers.filter((u) => {
       const team = assignedTo.map((i) => i.value);
       if (team.includes(u.id)) return true;
     });
@@ -42,6 +42,7 @@ const CreateTaskModal = ({ handleClose }) => {
     setIsLoading(true);
     const data = {
       creator: user,
+      teamId,
       createdAt: Date.now(),
       title: taskName,
       description,
@@ -151,4 +152,4 @@ const CreateTaskModal = ({ handleClose }) => {
   );
 };
 
-export default CreateTaskModal;
+export default CreateTeamTaskModal;

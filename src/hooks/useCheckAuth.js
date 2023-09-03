@@ -8,7 +8,7 @@ import { loadUsers } from "../features/users/usersSlice";
 export default function useAuthCheck() {
   const [authChecked, setAuthChecked] = useState(false);
   const dispatch = useDispatch();
-  const localAuth = localStorage?.getItem("auth");
+  const localAuth = localStorage.getItem("auth");
 
   useEffect(() => {
     if (localAuth) {

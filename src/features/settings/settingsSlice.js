@@ -8,9 +8,7 @@ const initialState = {
   status: {
     allStatus: ["Completed", "In Progress", "Pending"],
   },
-  openFormModal: false,
-  editMode: false,
-  editableTask: null,
+  filterBy: "All",
 };
 
 const settingsSlice = createSlice({
@@ -21,8 +19,12 @@ const settingsSlice = createSlice({
       state.tabs.currentTab = action.payload;
     },
     toggleEditMode: (state, action) => (state.editMode = action.payload),
+    changeTaskFilter: (state, action) => {
+      state.filterBy = action.payload;
+    },
   },
 });
 
-export const { changeTab, toggleEditMode } = settingsSlice.actions;
+export const { changeTab, toggleEditMode, changeTaskFilter } =
+  settingsSlice.actions;
 export default settingsSlice.reducer;

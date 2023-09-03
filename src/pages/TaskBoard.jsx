@@ -7,10 +7,12 @@ import TeamPlay from "../components/task-board/team-play/TeamPlay";
 const TaskBoard = () => {
   const { currentTab } = useSelector((state) => state.settings.tabs);
   return (
-    <div className="bg-stone-200/40 min-h-screen px-14 py-8">
+    <div className="bg-stone-200/40  px-14 py-8">
       <Navbar />
       <TaskboardHeader />
-      {currentTab == "All Tasks" ? <AllTasks /> : <TeamPlay />}
+      <div className="w-full">
+        {currentTab == "All Tasks" ? <AllTasks /> : <TeamPlay />}
+      </div>
     </div>
   );
 };

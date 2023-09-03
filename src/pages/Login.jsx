@@ -3,9 +3,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserByEmailId } from "../API/api";
 import { userLoggedIn } from "../auth/auth";
+import { useDispatch } from "react-redux";
+import { loggedIn } from "../features/auth/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,6 +22,7 @@ const Login = () => {
         if (user?.username) {
           if (password == user.password) {
             userLoggedIn(user);
+            dispatch(loggedIn(user));
             navigate("/task-board");
           } else {
             setError("Wrong password");

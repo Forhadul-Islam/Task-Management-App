@@ -66,7 +66,7 @@ export const getTasks = async () => {
   }
 };
 
-//update task by taskId
+//get task by taskId
 export const getTaskById = async (id) => {
   try {
     const task = await db.collection("tasks").doc({ id }).get();
@@ -76,8 +76,19 @@ export const getTaskById = async (id) => {
   }
 };
 
+//get task by teamId
+export const getTaskByTeamId = async (teamId) => {
+  try {
+    const tasks = await db.collection("tasks").doc({ teamId }).get();
+    return tasks;
+  } catch (error) {
+    console.log("error: ", error);
+  }
+};
+
 //edit task
 export const editTask = async ({ id, task }) => {
+  console.log({ id, task });
   try {
     const editedTask = await db.collection("tasks").doc({ id }).update(task);
     return editedTask;
@@ -89,7 +100,10 @@ export const editTask = async ({ id, task }) => {
 //create new team
 export const createTeam = async (team) => {
   try {
-    const newTeam = await db.collection("teams").add(team);
+    const newTeam = await db.collection("teams").add({
+      ...team,
+      id: uuid()(),
+    });
     return newTeam;
   } catch (error) {
     console.log("error: ", error);
