@@ -54,8 +54,8 @@ const Register = () => {
               };
               createUser(data).then((user) => {
                 userLoggedIn(user?.data?.data);
+                navigate("/task-board");
               });
-              navigate("/task-board");
               setIsLoading(false);
             })
             .catch((err) => {

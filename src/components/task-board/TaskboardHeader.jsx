@@ -105,8 +105,8 @@ const TaskboardHeader = () => {
           className="text-black self-end mt-2 mb-1 font-semibold flex items-center  rounded-full text-center"
         >
           <span>
-            <BsPlusSquare className="text-4xl bg-white p-1 rounded-md" />
-          </span>{" "}
+            <BsPlusSquare className="text-4xl bg-indigo-700 hover:scale-105 transition-all text-white p-1 rounded-md" />
+          </span>
         </button>
       )}
     </div>

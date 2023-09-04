@@ -55,7 +55,7 @@ const Task = ({ task }) => {
       <HorizontalLine />
       <div className="flex justify-between">
         <div>
-          <div className="text-md">{title}</div>
+          <div className="text-lg font-medium ">{title}</div>
         </div>
         <div className="flex items-center">
           <select

@@ -17,9 +17,9 @@ const AllTasks = () => {
   const sortTasks = (sortBy, tasks) => {
     switch (sortBy) {
       case "Newest":
-        return tasks;
-      case "Oldest": {
         return tasks.sort((n, o) => o.createdAt - n.createdAt);
+      case "Oldest": {
+        return tasks.sort((n, o) => n.createdAt - o.createdAt);
       }
       case "Priority": {
         return [
@@ -48,7 +48,7 @@ const AllTasks = () => {
           t?.creator?.id == user?.id ||
           t?.assignedTo.map((i) => i.id).includes(user?.id);
         //Check the condition
-        if (filteringCondition) return true;
+        if (!t.teamId && filteringCondition) return true;
       });
       //sort
       sortedTasks = sortTasks(sortBy, userTasks);

@@ -11,9 +11,9 @@ import { FaSort } from "react-icons/fa";
 const sortTasks = (sortBy, tasks) => {
   switch (sortBy) {
     case "Newest":
-      return tasks;
-    case "Oldest": {
       return tasks.sort((n, o) => o.createdAt - n.createdAt);
+    case "Oldest": {
+      return tasks.sort((n, o) => n.createdAt - o.createdAt);
     }
     case "Priority": {
       return [
@@ -47,7 +47,6 @@ const TeamCard = ({ team }) => {
         return task.teamId == teamId;
       })
       .filter((task) => {
-        console.log(filterBy);
         if (filterBy == "All") {
           return true;
         }
@@ -92,7 +91,7 @@ const TeamCard = ({ team }) => {
             >
               {["All", "Pending", "In Progress", "Completed"].map((op) => {
                 return (
-                  <option key={op} selected={op == "Pending"} value={op}>
+                  <option key={op} selected={op == filterBy} value={op}>
                     {op}
                   </option>
                 );
@@ -111,7 +110,7 @@ const TeamCard = ({ team }) => {
             >
               {["Newest", "Oldest", "Priority", "Due-Date"].map((op) => {
                 return (
-                  <option key={op} selected={op == "Newest"} value={op}>
+                  <option key={op} selected={op == sortBy} value={op}>
                     {op}
                   </option>
                 );

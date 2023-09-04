@@ -59,7 +59,7 @@ export const createTask = async (task) => {
 //get all tasks
 export const getTasks = async () => {
   try {
-    const tasks = await db.collection("tasks").orderBy("createdAt").get();
+    const tasks = await db.collection("tasks").get();
     return tasks;
   } catch (error) {
     console.log("error: ", error);

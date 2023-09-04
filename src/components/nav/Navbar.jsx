@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { loggedOut } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { userLoggedOut } from "../../auth/auth";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const handleLogout = () => {
-    localStorage.removeItem("auth");
+    userLoggedOut();
     dispatch(loggedOut());
     navigate("/login");
   };
