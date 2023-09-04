@@ -28,6 +28,12 @@ const teamsSlice = createSlice({
         else return task;
       });
     },
+    removeTeamTask: (state, action) => {
+      const deletedTaskId = action.payload;
+      state.teamTasks = state.teamTasks.filter(
+        (task) => task.id !== deletedTaskId
+      );
+    },
   },
 });
 
@@ -37,5 +43,6 @@ export const {
   loadTeamTasks,
   addTeamTask,
   updateTeamTask,
+  removeTeamTask,
 } = teamsSlice.actions;
 export default teamsSlice.reducer;

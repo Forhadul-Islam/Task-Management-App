@@ -21,8 +21,15 @@ const tasksSlice = createSlice({
         else return task;
       });
     },
+    removeTask: (state, action) => {
+      const deletedTaskId = action.payload;
+      state.allTasks = state.allTasks.filter(
+        (task) => task.id !== deletedTaskId
+      );
+    },
   },
 });
 
-export const { loadTasks, addTask, updateTask } = tasksSlice.actions;
+export const { loadTasks, addTask, updateTask, removeTask } =
+  tasksSlice.actions;
 export default tasksSlice.reducer;

@@ -97,6 +97,20 @@ export const editTask = async ({ id, task }) => {
   }
 };
 
+//delete task by id
+
+export const deleteTask = async (taskId) => {
+  try {
+    const deletedTask = await db
+      .collection("tasks")
+      .doc({ id: taskId })
+      .delete();
+    return deletedTask;
+  } catch (err) {
+    console.log("error: ", err);
+  }
+};
+
 //create new team
 export const createTeam = async (team) => {
   try {
