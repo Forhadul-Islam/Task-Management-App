@@ -77,6 +77,7 @@ const TeamPlay = () => {
         </div>
       </div>
     );
+
   return (
     <>
       <div className="flex justify-end mb-6">
@@ -108,6 +109,9 @@ const TeamPlay = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 justify-evenly  flex-wrap ">
           {searchedTeam.length > 0 &&
             searchedTeam.map((team) => <TeamCard key={team?.id} team={team} />)}
+          {searchedTeam.length == 0 && (
+            <div className="text-center">Nothing found!</div>
+          )}
         </div>
       </div>
     </>

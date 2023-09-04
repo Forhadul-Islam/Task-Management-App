@@ -37,6 +37,7 @@ const CreateTeamModal = ({ handleClose }) => {
   const handleCreateTeam = () => {
     setIsLoading(true);
     const data = {
+      createdAt: Date.now(),
       name: teamName,
       creator: user,
       members: populateTeamMembersWithUserProfile(allUsers, members),

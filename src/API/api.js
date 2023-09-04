@@ -1,3 +1,5 @@
+//Here I am using indexDB as an offline database
+
 import db from "../db/db";
 import { uuid } from "../lib/uuidGenerator";
 

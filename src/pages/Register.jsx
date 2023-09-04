@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, getUserByEmailId } from "../API/api";
 import { userLoggedIn } from "../auth/auth";
+import useAuthCheck from "../hooks/useCheckAuth";
+import { useDispatch } from "react-redux";
+import { loggedIn } from "../features/auth/authSlice";
 // import { hashPassword } from "../lib/hashPassword";
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -54,9 +58,10 @@ const Register = () => {
               };
               createUser(data).then((user) => {
                 userLoggedIn(user?.data?.data);
+                dispatch(loggedIn(user));
                 navigate("/task-board");
+                setIsLoading(false);
               });
-              setIsLoading(false);
             })
             .catch((err) => {
               console.log(err);
