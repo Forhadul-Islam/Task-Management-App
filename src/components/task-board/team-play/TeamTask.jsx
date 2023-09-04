@@ -3,6 +3,9 @@ import { TiEdit } from "react-icons/ti";
 import HorizontalLine from "../../ui/HorizontalLine";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import EditTaskModal from "../EditTaskModal";
+import { editTask } from "../../../API/api";
+import { updateTeamTask } from "../../../features/teams/teamsSlice";
 
 const TeamTask = ({ task }) => {
   const dispatch = useDispatch();
@@ -26,25 +29,26 @@ const TeamTask = ({ task }) => {
       ...task,
       status,
     };
-    //   editTask({ id: taskId, task: updatedTask }).then((task) => {
-    //     dispatch(updateTask({ taskId, updatedTask: task.data }));
-    //   });
+    editTask({ id: taskId, task: updatedTask }).then((task) => {
+      dispatch(updateTeamTask({ taskId, updatedTask: task.data }));
+    });
   };
 
   return (
-    <div className=" w-full mx-auto bg-slate-200/70 rounded-md px-5 py-4 hover:shadow-md">
+    <div className=" w-full  mx-auto my-4 bg-zinc-200/70 rounded-md px-3 py-3 hover:shadow-md">
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
           <img
-            className="h-8 w-8 rounded-full"
+            className="h-6 w-6 rounded-full"
             src={creator?.image}
             alt={creator?.username}
           />
+
           <span>{creator?.username}</span>
         </div>
         <div>
           <select
-            className="bg-orange-200 text-gray-800  border border-orange-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded  "
+            className="bg-orange-200 text-gray-800 w-20 mb-1  border border-orange-400 text-xs font-medium mr-2 px-2.5 py-0.5 rounded  "
             name="status"
             id="status"
             onChange={(e) => handleUpdateStatus(e)}
@@ -62,7 +66,6 @@ const TeamTask = ({ task }) => {
           </select>
         </div>
       </div>
-      <HorizontalLine />
       <div className="flex justify-end">
         <span
           className={`${priorityClass} self-end text-xs font-medium mr-2 px-2.5 py-0.5 rounded `}
@@ -70,6 +73,7 @@ const TeamTask = ({ task }) => {
           {priority}
         </span>
       </div>
+      <HorizontalLine />
       <div className="flex justify-between">
         <div>
           <div className="text-md">{title}</div>
@@ -100,6 +104,13 @@ const TeamTask = ({ task }) => {
               className="text-slate-800 cursor-pointer hover:text-blue-700 transition-all"
             />
           </span>
+        )}
+        {editMode && (
+          <EditTaskModal
+            teamPlay
+            task={task}
+            handleClose={() => setEditMode(false)}
+          />
         )}
       </div>
     </div>

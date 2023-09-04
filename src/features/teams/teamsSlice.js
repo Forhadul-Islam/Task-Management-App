@@ -18,8 +18,24 @@ const teamsSlice = createSlice({
     loadTeamTasks: (state, action) => {
       state.teamTasks = action.payload;
     },
+    addTeamTask: (state, action) => {
+      state.teamTasks.push(action.payload);
+    },
+    updateTeamTask: (state, action) => {
+      const { taskId, updatedTask } = action.payload;
+      state.teamTasks = state.teamTasks.map((task) => {
+        if (task.id == taskId) return updatedTask;
+        else return task;
+      });
+    },
   },
 });
 
-export const { loadTeams, addTeam, loadTeamTasks } = teamsSlice.actions;
+export const {
+  loadTeams,
+  addTeam,
+  loadTeamTasks,
+  addTeamTask,
+  updateTeamTask,
+} = teamsSlice.actions;
 export default teamsSlice.reducer;

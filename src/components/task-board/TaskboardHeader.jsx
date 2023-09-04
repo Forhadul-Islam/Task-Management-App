@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
+  changeSortBy,
   changeTab,
   changeTaskFilter,
 } from "../../features/settings/settingsSlice";
@@ -8,6 +9,7 @@ import HorizontalLine from "../ui/HorizontalLine";
 import { useState } from "react";
 import { BsPlusSquare } from "react-icons/bs";
 import { AiFillFilter } from "react-icons/ai";
+import { FaSort } from "react-icons/fa";
 
 const TaskboardHeader = () => {
   const dispatch = useDispatch();
@@ -17,11 +19,13 @@ const TaskboardHeader = () => {
   } = useSelector((state) => state.settings);
   const { filterBy } = useSelector((state) => state.settings);
 
-  console.log(filterBy);
-
   const handleFilterChange = (e) => {
     const filter = e.target.value;
     dispatch(changeTaskFilter(filter));
+  };
+  const handleSortChange = (e) => {
+    const sort = e.target.value;
+    dispatch(changeSortBy(sort));
   };
 
   return (
@@ -44,25 +48,48 @@ const TaskboardHeader = () => {
         </ul>
         <div className="flex gap-2">
           {currentTab == "All Tasks" && (
-            <div>
-              <label htmlFor="filterby" className="flex items-center">
-                <AiFillFilter /> <span>Filter</span>
-                <select
-                  name="priority"
-                  id="priority"
-                  onChange={(e) => handleFilterChange(e)}
-                  className="border ml-2 border-gray-300  rounded-md focus:outline-none text-sm  bg-zinc-100"
-                >
-                  {["All", "Pending", "In Progress", "Completed"].map((op) => {
-                    return (
-                      <option key={op} selected={op == filterBy} value={op}>
-                        {op}
-                      </option>
-                    );
-                  })}
-                </select>
-              </label>
-            </div>
+            <>
+              <div>
+                <label htmlFor="filterby" className="flex items-center">
+                  <AiFillFilter /> <span>Filter</span>
+                  <select
+                    name="priority"
+                    id="priority"
+                    onChange={(e) => handleFilterChange(e)}
+                    className="border ml-2 border-gray-300  rounded-md focus:outline-none text-sm  bg-zinc-100"
+                  >
+                    {["All", "Pending", "In Progress", "Completed"].map(
+                      (op) => {
+                        return (
+                          <option key={op} selected={op == filterBy} value={op}>
+                            {op}
+                          </option>
+                        );
+                      }
+                    )}
+                  </select>
+                </label>
+              </div>
+              <div>
+                <label htmlFor="filterby" className="flex items-center">
+                  <FaSort /> <span>Sort by</span>
+                  <select
+                    name="priority"
+                    id="priority"
+                    onChange={(e) => handleSortChange(e)}
+                    className="border ml-2 border-gray-300  rounded-md focus:outline-none text-sm  bg-zinc-100"
+                  >
+                    {["Newest", "Oldest", "Priority", "Due-Date"].map((op) => {
+                      return (
+                        <option key={op} selected={op == filterBy} value={op}>
+                          {op}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </label>
+              </div>
+            </>
           )}
 
           {/* show modal to create new task */}

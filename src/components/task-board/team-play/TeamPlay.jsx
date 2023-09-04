@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getTaskByTeamId, getTasks, getTeams } from "../../../API/api";
+import { getTasks, getTeams } from "../../../API/api";
 import CreateTeamModal from "./CreateTeamModal";
 import TeamCard from "./TeamCard";
 import { useEffect, useState } from "react";
@@ -39,7 +39,13 @@ const TeamPlay = () => {
     });
   }, [dispatch, user]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="my-10 text-center">Loading...</div>;
+  if (!isLoading && teams.length == 0)
+    return (
+      <div className="my-10 text-center">
+        No Team exists. Create Your Team now!
+      </div>
+    );
   return (
     <>
       <div className="flex justify-end mb-6">
@@ -54,7 +60,7 @@ const TeamPlay = () => {
         )}
       </div>
       <div className="flex ">
-        <div className="flex gap-6 justify-center md:justify-between flex-wrap">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 justify-evenly  flex-wrap ">
           {teams.length > 0 &&
             teams.map((team) => <TeamCard key={team?.id} team={team} />)}
         </div>

@@ -6,8 +6,9 @@ import HorizontalLine from "../ui/HorizontalLine";
 import Select from "react-select";
 import { editTask } from "../../API/api";
 import { updateTask } from "../../features/tasks/tasksSlice";
+import { updateTeamTask } from "../../features/teams/teamsSlice";
 
-const EditTaskModal = ({ handleClose, task }) => {
+const EditTaskModal = ({ handleClose, task, teamPlay }) => {
   const dispatch = useDispatch();
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
@@ -66,9 +67,12 @@ const EditTaskModal = ({ handleClose, task }) => {
       priority,
       assignedTo: getAssignedProfiles(),
     };
-    console.log(data);
     editTask({ id: taskId, task: data }).then((task) => {
-      dispatch(updateTask({ taskId, updatedTask: task.data }));
+      if (teamPlay) {
+        dispatch(updateTeamTask({ taskId, updatedTask: task.data }));
+      } else {
+        dispatch(updateTask({ taskId, updatedTask: task.data }));
+      }
       console.log(task.data);
       setIsLoading(false);
       handleClose();

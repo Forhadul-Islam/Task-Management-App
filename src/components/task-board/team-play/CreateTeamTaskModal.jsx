@@ -6,7 +6,7 @@ import Select from "react-select";
 import Modal from "../../modal/Modal";
 import HorizontalLine from "../../ui/HorizontalLine";
 import { createTask } from "../../../API/api";
-import { addTask } from "../../../features/tasks/tasksSlice";
+import { addTeamTask } from "../../../features/teams/teamsSlice";
 
 const CreateTeamTaskModal = ({ handleClose, teamId, teamMembers }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,6 @@ const CreateTeamTaskModal = ({ handleClose, teamId, teamMembers }) => {
   const [assignedTo, setAssignedTo] = useState([]);
   const [deadline, setDeadline] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { allUsers } = useSelector((state) => state.users);
   const { user } = useSelector((state) => state.auth);
 
   const allUsersSelectOptions = teamMembers
@@ -53,7 +52,7 @@ const CreateTeamTaskModal = ({ handleClose, teamId, teamMembers }) => {
     };
 
     createTask(data).then((task) => {
-      dispatch(addTask(task.data.data));
+      dispatch(addTeamTask(task.data.data));
       setIsLoading(false);
       handleClose();
     });

@@ -12,8 +12,15 @@ const Task = ({ task }) => {
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  const { creator, title, assignedTo, priority, description, status } =
-    task || {};
+  const {
+    creator,
+    title,
+    assignedTo,
+    priority,
+    description,
+    status,
+    deadline,
+  } = task || {};
 
   const priorityClass =
     priority !== "High"
@@ -36,7 +43,7 @@ const Task = ({ task }) => {
   };
 
   return (
-    <div className="w-5/6 min-h-[150px] mx-auto  my-4 bg-white rounded-md px-5 py-4 hover:shadow-md">
+    <div className="w-5/6 min-h-[100px] mx-auto  my-4 bg-white rounded-md px-5 py-4 hover:shadow-md">
       <div className="flex gap-2 items-center">
         <img
           className="h-8 w-8 rounded-full"
@@ -107,6 +114,10 @@ const Task = ({ task }) => {
             <EditTaskModal task={task} handleClose={() => setEditMode(false)} />
           )}
         </div>
+        <h5>
+          {" "}
+          <span className="font-medium">Deadline:</span> {deadline}
+        </h5>
       </div>
     </div>
   );

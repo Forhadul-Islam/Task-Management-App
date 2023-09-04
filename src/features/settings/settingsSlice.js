@@ -9,6 +9,7 @@ const initialState = {
     allStatus: ["Completed", "In Progress", "Pending"],
   },
   filterBy: "All",
+  sortBy: "Newest",
 };
 
 const settingsSlice = createSlice({
@@ -22,9 +23,12 @@ const settingsSlice = createSlice({
     changeTaskFilter: (state, action) => {
       state.filterBy = action.payload;
     },
+    changeSortBy: (state, action) => {
+      state.sortBy = action.payload;
+    },
   },
 });
 
-export const { changeTab, toggleEditMode, changeTaskFilter } =
+export const { changeTab, toggleEditMode, changeTaskFilter, changeSortBy } =
   settingsSlice.actions;
 export default settingsSlice.reducer;
